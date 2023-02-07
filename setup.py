@@ -40,6 +40,7 @@ class build_ext(build_ext_orig):
             "-DCMAKE_BUILD_TYPE=" + config,
             "-DUSE_SSE=OFF",
         ]
+        # TODO: only use -DUSE_SSE=OFF for macOS arm64 builds
 
         # example of build args
         build_args = [
