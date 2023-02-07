@@ -44,5 +44,5 @@ def get_binary(program_name: str) -> Path:
     if _CONDA_INSTALL_PATH is not None:
         return _CONDA_INSTALL_PATH / program_name
     else:
-        binaries_folder = resource_filename("brainreg", "bin/nifty_reg")
+        binaries_folder = resource_filename("brainreg", "niftyreg")
         return Path(binaries_folder) / os_folder_name / program_name
