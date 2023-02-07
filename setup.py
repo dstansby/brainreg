@@ -1,6 +1,7 @@
 import glob
 import os
 import pathlib
+import shutil
 from os import path
 
 from setuptools import Extension, find_packages, setup
@@ -56,11 +57,17 @@ class build_ext(build_ext_orig):
         # Copy binaries from temp build folder to wheel
         binaries = glob.glob(str(build_temp / "reg-apps" / "*"))
         binaries = [
-            b
+            pathlib.Path(b)
             for b in binaries
             if os.access(b, os.X_OK)
             and pathlib.Path(b).name.startswith("reg_")
         ]
+
+        lib_nifty_dir = pathlib.Path(self.build_lib) / "brainreg" / "niftyreg"
+        lib_nifty_dir.mkdir()
+        for b in binaries:
+            dst = lib_nifty_dir / b.name
+            shutil.move(b, dst)
 
 
 this_directory = path.abspath(path.dirname(__file__))
